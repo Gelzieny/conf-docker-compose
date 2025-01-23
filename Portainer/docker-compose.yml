@@ -1,0 +1,20 @@
+version: "3.8" # Remova esta linha se estiver usando Docker Swarm
+
+services:
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: always
+    ports:
+      - "9443:9443"
+    networks:
+      - app_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Acesso ao Docker
+      - portainer_data:/data # Persistência dos dados
+
+volumes:
+  portainer_data:
+
+networks:
+  app_network:
