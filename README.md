@@ -37,50 +37,6 @@ Se precisar remover tudo e começar do zero:
 docker-compose down --volumes --rmi all
 ```
 
-📦 Exemplo de docker-compose.yml
-
-Aqui está um exemplo básico com uma aplicação Flask e um banco PostgreSQL:
-
-```yaml
-version: "3.9"
-
-services:
-  app:
-    build: ./app
-    container_name: flask_app
-    ports:
-      - "5000:5000"
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb
-    depends_on:
-      - db
-
-  db:
-    image: postgres:15
-    container_name: postgres_db
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mydb
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
-```
-📌 Estrutura do projeto
-.
-├── app/
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   └── src/
-│       └── app.py
-├── docker-compose.yml
-└── README.md
-
 
 📌 Observações
 
