@@ -1,11 +1,11 @@
 O parâmetro --build garante que qualquer alteração seja reconstruída.
 
-```bash
+````bash
 docker-compose up --build
-```
+````
 
 Se quiser rodar em modo background (detached):
 
-```bash 
+````bash 
 docker-compose up -d 
-```
+````
