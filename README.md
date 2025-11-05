@@ -18,7 +18,7 @@ docker-compose up --build
 Caso queira manter os containers rodando em background:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 🛑 Parando os containers
@@ -26,7 +26,7 @@ docker-compose up -d
 Para parar os serviços em execução:
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 🧹 Limpando containers, imagens e volumes
@@ -34,7 +34,7 @@ docker-compose down
 Se precisar remover tudo e começar do zero:
 
 ```bash
-docker-compose down --volumes --rmi all
+docker compose down --volumes --rmi all
 ```
 
 
@@ -45,6 +45,6 @@ Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina.
 Você pode verificar os logs de execução com:
 
 ```bash
-docker-compose logs -f
+docker compose logs -f
 
 ```
