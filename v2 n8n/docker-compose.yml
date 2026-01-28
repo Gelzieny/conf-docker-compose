@@ -1,9 +1,11 @@
-version: "3.7"
+version: "3.8"
 
 services:
   redis:
     image: redis:latest
+    container_name: n8n-redis
     platform: linux/amd64
+    restart: unless-stopped
     command: redis-server --requirepass default
     environment:
       REDIS_USER: default
@@ -12,12 +14,14 @@ services:
       - "6379:6379"
 
   postgres:
-    image: postgres:latest
+    image: postgres:16
+    container_name: n8n-postgres
+    restart: unless-stopped
     platform: linux/amd64
     environment:
-      POSTGRES_USER: default
-      POSTGRES_PASSWORD: default
-      POSTGRES_DB: default
+      POSTGRES_USER: default_n8n
+      POSTGRES_PASSWORD: default_n8N
+      POSTGRES_DB: db_n8n
     ports:
       - "5432:5432"
     volumes:
@@ -26,6 +30,7 @@ services:
   waha:
     image: devlikeapro/waha:latest
     platform: linux/amd64
+    restart: unless-stopped
     environment:
       WHATSAPP_HOOK_URL: http://host.docker.internal:5678/webhook/webhook
       WHATSAPP_DEFAULT_ENGINE: GOWS
@@ -38,20 +43,35 @@ services:
 
   n8n:
     image: n8nio/n8n:latest
+    container_name: n8n
     platform: linux/amd64
+    restart: unless-stopped
     environment:
       WEBHOOK_URL: http://host.docker.internal:5678
       N8N_HOST: host.docker.internal
       GENERIC_TIMEZONE: America/Sao_Paulo
       N8N_LOG_LEVEL: debug
       N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE: true
+
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: db_n8n
+      DB_POSTGRESDB_USER: default_n8n
+      DB_POSTGRESDB_PASSWORD: default_n8N
     volumes:
       - n8n_data:/home/node/.n8n
     ports:
       - "5678:5678"
+    depends_on:
+      - postgres
+      - redis
 
 volumes:
   pgdata:
   waha_sessions:
   waha_media:
   n8n_data:
+
+networks:
+  app_network:
