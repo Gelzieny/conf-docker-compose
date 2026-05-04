@@ -10,7 +10,7 @@ Abaixo estão os principais comandos e um exemplo de configuração.
 O parâmetro `--build` garante que qualquer alteração na imagem seja reconstruída antes de iniciar os serviços:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 🔄 Rodando em segundo plano (detached)
